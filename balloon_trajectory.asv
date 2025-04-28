@@ -5,7 +5,7 @@ dir functions\
 
 % Constants
 g = 9.80665;       % Acceleration due to gravity [m/s^2]
-C_d = 0.25;        % Drag coefficient, from Manufacturer
+C_d = 0.25;         % Drag coefficient, from Manufacturer
 m = 1.5 + 5.27;    % Mass of the balloon system [kg]
 V_i = 10.48;       % Initial volume [m^3]
 T_i = 273.15 + 12; % Initial temperature [K]

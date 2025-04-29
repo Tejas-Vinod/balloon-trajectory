@@ -1,29 +1,41 @@
-% Governing Equation of Motion
-function state_dot = EOM(t, state, p_i, V_i, C_d, m, T_i, wind)
-    pos = state(1:3);
-    vel = state(4:end);
+function state_dot = EOM(t, state, p_i, V_i, C_d, m, T_i, wind, lat0, lon0)
+    pos = state(1:3); % [x, y, z]
+    vel = state(4:6); % [vx, vy, vz]
+    x = pos(1);
+    y = pos(2);
     z = pos(3);
 
+    % Earth's radius
+    R = 6371370; % meters
+
+    % Convert x, y to latitude and longitude (for possible future use)
+    lat = lat0 + (y / R) * (180 / pi);
+    lon = lon0 + (x / (R * cosd(lat0))) * (180 / pi);
+
+    % Constant Wind
+    u_wind = wind(1); % Eastward wind component (constant)
+    v_wind = wind(2); % Northward wind component (constant)
+
+    % Balloon Forces
     Vz = V_z(z, p_i, V_i, T_i);
-    Az = (Vz * 3 / (4 * pi))^(2 / 3) * pi;
+    Az = (Vz * 3 / (4 * pi))^(2/3) * pi;
     Fasc = F_d(z, vel(3), C_d, Az);
-    az = (L_z(z,Vz)-Fasc)/m;
+    az = (L_z(z, Vz) - Fasc) / m;
 
-    uvel = vel(1)-wind(1);
-    Fu = F_d(z, uvel, C_d, Az);
-    au = -Fu/(m*uvel)*(vel(1)-wind(1));
+    % Relative velocities
+    u_rel = vel(1) - u_wind;
+    v_rel = vel(2) - v_wind;
 
-    vvel = vel(2)-wind(2);
-    Fv = F_d(z, vvel, C_d, Az);
-    av = -Fv/(m*vvel)*(vel(2)-wind(2));
-    
-    if width(vel) == 3
-        state_dot = [vel'; au; av; az];
-    elseif height(vel) == 3
-        state_dot = [vel; au; av; az];
-    else
-        warning('Error')
-    end
+    % Drag Forces
+    Fu = F_d(z, u_rel, C_d, Az);
+    Fv = F_d(z, v_rel, C_d, Az);
+
+    % Accelerations
+    au = -Fu / m * sign(u_rel + eps); 
+    av = -Fv / m * sign(v_rel + eps);
+
+    % Output
+    state_dot = [vel; au; av; az];
 end
 
 % Lift at Altitude z

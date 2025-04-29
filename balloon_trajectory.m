@@ -21,6 +21,6 @@ h_b = 7238.3*log(V_b/V_i);
 
 % Initializing Runge Kutta 4
 state = [0; 0; 0; 0; 0; 0]; % Initial state, [x; y; z;vx;vy;vz]
-wind  = [1,1];               % Initial Wind Speed
+wind  = [1,1];              % Initial Wind Speed
 
 test = runga_kutta_4(state, t, h, p_i, V_i, C_d, m, T_i, wind, h_b);

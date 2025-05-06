@@ -10,7 +10,7 @@ m = 1.5 + 5.27;    % Mass of the balloon system [kg]
 V_i = 10.48;       % Initial volume [m^3]
 T_i = 273.15 + 12; % Initial temperature [K]
 p_i = 962.68*100;  % Initial pressure [Pa]
-V_b = 476.72;       
+V_b = 476.72;
 
 % Time settings
 t = 0:1:9000;      % Time vector [s]
@@ -22,12 +22,12 @@ h_b = 7238.3*log(V_b/V_i);
 % Initializing Runge Kutta 4
 % Launch Location
 lat0 =  37.19703;
-lon0 = -80.57858; 
+lon0 = -80.57858;
 R = 6371370;      % Earth's radius in meters
 
 
 state = [0; 0; 0; 0; 0; 0]; % Initial state, [x; y; z;vx;vy;vz]
-wind  = [1,1];              % Initial Wind Speed
+wind  = [10,10];              % Initial Wind Speed
 
 state_f = runga_kutta_4(state, t, h, p_i, V_i, C_d, m, T_i, wind, h_b, lat0, lon0);
 

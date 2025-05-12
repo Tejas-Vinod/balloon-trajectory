@@ -27,8 +27,8 @@ h_b = 7238.3*log(V_b/V_i);
 
 % Initializing Runge Kutta 4
 % Launch Location
-lat0 =  37.19703;
-lon0 = -80.57858;
+lat0 =  37.196976;
+lon0 = -80.578335;
 R = 6371370;      % Earth's radius in meters
 
 

@@ -20,8 +20,8 @@ V_b = 476.72;
 % d = '2025-04-27 14:30:00';
 % unix = convertTo(datetime(d,'InputFormat','yyyy-MM-dd HH:mm:ss')+offset,'posixtime');
 % t = unix;
-h = 1;             % Time step [s]
-t = 0:h:200;      % Time vector [s]
+h = 0.01;             % Time step [s]
+t = 0:h:100000;      % Time vector [s]
 % Calculations
 h_b = 7238.3*log(V_b/V_i);
 

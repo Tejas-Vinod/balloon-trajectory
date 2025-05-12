@@ -26,7 +26,7 @@ lon0 = -80.57858;
 R = 6371370;      % Earth's radius in meters
 
 
-state = [0; 0; 0; 0; 0; 0]; % Initial state, [x; y; z;vx;vy;vz]
+state = [0; 0; 513; 0; 0; 0]; % Initial state, [x; y; z;vx;vy;vz]
 wind  = [10,10];              % Initial Wind Speed
 
 state_f = runga_kutta_4(state, t, h, p_i, V_i, C_d, m, T_i, wind, h_b, lat0, lon0);

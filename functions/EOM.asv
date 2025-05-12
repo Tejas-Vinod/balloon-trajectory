@@ -1,5 +1,4 @@
-function state_dot = EOM(t, state, p_i, V_i, C_d, m, T_i, df, lat0, lon0)
-%df is dataframe for wind data
+function state_dot = EOM(t, state, p_i, V_i, C_d, m, T_i, wind, lat0, lon0, df)
 
 pos = state(1:3); % [x, y, z]
 vel = state(4:6); % [vx, vy, vz]
@@ -15,8 +14,7 @@ lat = lat0 + (y / R) * (180 / pi);
 lon = lon0 + (x / (R * cosd(lat0))) * (180 / pi);
 
 % Constant Wind
-wind = double(pyrunfile("get_wind.py", "interpres", dataframe = df, target = [lat, lon, z, t], status = "ascent"));
-
+wind = pyrunfile("get_wind.py", "interpres", dataframe = df, target = [lat, lon, alt, time], status = "ascent");
 u_wind = wind(1); % Eastward wind component (constant)
 v_wind = wind(2); % Northward wind component (constant)
 

@@ -1,0 +1,11 @@
+clear;clc;
+% res = pyrunfile("testiingfunc.py", "result", tejas=4)
+
+
+df = readtable('Launches\23.04.09\wind_data_2023apr9.csv');
+time = 1681057824;
+wind = pyrunfile("get_wind.py", "interpres", dataframe = df, target = [37.197030000000000, -80.578580000000000, 10, time], status = "ascent")
+
+
+
+

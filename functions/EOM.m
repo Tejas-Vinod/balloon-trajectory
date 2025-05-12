@@ -17,8 +17,8 @@ lon = lon0 + (x / (R * cosd(lat0))) * (180 / pi);
 % Constant Wind
 wind = double(pyrunfile("get_wind.py", "interpres", dataframe = df, target = [lat, lon, z, t], status = "ascent"));
 
-u_wind = wind(1); % Eastward wind component (constant)
-v_wind = wind(2); % Northward wind component (constant)
+vel(1) = wind(1); % Eastward wind component (constant)
+vel(2) = wind(2); % Northward wind component (constant)
 
 % Balloon Forces
 Vz = V_z(z, p_i, V_i, T_i);
@@ -26,17 +26,17 @@ Az = (Vz * 3 / (4 * pi))^(2/3) * pi;
 Fasc = F_d(z, vel(3), C_d, Az);
 az = (L_z(z, Vz) - Fasc) / m;
 
-% Relative velocities
-u_rel = vel(1) - u_wind;
-v_rel = vel(2) - v_wind;
+% % Relative velocities
+% u_rel = vel(1) - u_wind;
+% v_rel = vel(2) - v_wind;
+% 
+% % Drag Forces
+% Fu = F_d(z, u_rel, C_d, Az);
+% Fv = F_d(z, v_rel, C_d, Az);
 
-% Drag Forces
-Fu = F_d(z, u_rel, C_d, Az);
-Fv = F_d(z, v_rel, C_d, Az);
-
-% Accelerations
-au = -Fu / m * sign(u_rel + eps);
-av = -Fv / m * sign(v_rel + eps);
+% % Accelerations
+% au = -Fu / m * sign(u_rel + eps);
+% av = -Fv / m * sign(v_rel + eps);
 
 % Output
 state_dot = [vel; au; av; az];

@@ -17,10 +17,10 @@ function write_kml(lat, lon, alt, filename)
     fprintf(fileID, '<Placemark>\n');
     fprintf(fileID, '<name>Flight Path</name>\n');
     fprintf(fileID, '<LineString>\n');
-    fprintf(fileID, '<extrude>1</extrude>\n');
     fprintf(fileID, '<tessellate>1</tessellate>\n');
-    fprintf(fileID, '<altitudeMode>absolute</altitudeMode>\n');
-
+    <extrude>1</extrude>
+<tesselate>1</tesselate>
+<altitudeMode>absolute</altitudeMode>
     fprintf(fileID, '<coordinates>\n');
     
     

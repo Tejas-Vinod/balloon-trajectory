@@ -11,8 +11,8 @@ z = pos(3);
 R = 6371370; % meters
 
 % Convert x, y to latitude and longitude (for possible future use)
-lat = lat0 + (y / R) * (180 / pi);
-lon = lon0 + (x / (R * cosd(lat0))) * (180 / pi);
+lat = rad2deg(deg2rad(lat0) + y/R);
+lon = lon0 + (x / (R * cosd(lat))) * (180 / pi);
 
 % Constant Wind
 wind = double(pyrunfile("get_wind.py", "interpres", dataframe = df, target = [lat, lon, z, t], status = "ascent"));
@@ -24,9 +24,9 @@ v_wind = wind(2); % Northward wind component
 Vz = V_z(z, p_i, V_i, T_i);
 Az = (Vz * 3 / (4 * pi))^(2/3) * pi;
 Fasc = F_d(z, vel(3), C_d, Az);
-az = 0;
-%az = (L_z(z, Vz) - Fasc) / m;
-vel(3) = 5; % Constant ascent rate (m/s)
+%az = 0;
+az = (L_z(z, Vz) - Fasc) / m;
+%vel(3) = 5; % Constant ascent rate (m/s)
 
 % Relative velocities
 u_rel = vel(1) - u_wind;

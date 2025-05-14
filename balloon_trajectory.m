@@ -3,7 +3,7 @@ clc
 
 
 pyenv("ExecutionMode","OutOfProcess")
-addpath('C:\Users\johnr\Documents\GitHub')
+addpath('C:\Users\tejasv22\Documents\GitHub')
 dir functions\
 
 % Constants
@@ -32,9 +32,9 @@ lon0 = -80.578335;
 R = 6371370;      % Earth's radius in meters
 
 
-state = [0; 0; 513; 0; 0; 0]; % Initial state, [x; y; z;vx;vy;vz]
+state = [0; 0; 513; 0; 0; 0]; % Initial state, [x; y; z; vx; vy; vz]
 % df = readtable('Launches\23.04.09\wind_data_2023apr9.csv');
-df = readtable("C:\Users\johnr\Documents\GitHub\balloon-trajectory\Launches\pressure27.csv");
+df = readtable("C:\Users\tejasv22\Documents\GitHub\balloon-trajectory\Launches\pressure27.csv");
 
 state_f = runga_kutta_4(state, t, h, p_i, V_i, C_d, m, T_i, df, h_b, lat0, lon0);
 

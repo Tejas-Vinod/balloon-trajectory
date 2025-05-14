@@ -11,8 +11,8 @@ z = pos(3);
 R = 6371370; % meters
 
 % Convert x, y to latitude and longitude (for possible future use)
-lat = rad2deg(deg2rad(lat0) + y/R);
-lon = lon0 + (x / (R * cosd(lat))) * (180 / pi);
+lat = lat0 + (y / R) * (180 / pi);
+lon = lon0 + (x / (R * cosd(lat0))) * (180 / pi);
 
 % Constant Wind
 wind = double(pyrunfile("get_wind.py", "interpres", dataframe = df, target = [lat, lon, z, t], status = "ascent"));
@@ -32,6 +32,9 @@ az = (L_z(z, Vz) - Fasc) / m;
 u_rel = vel(1) - u_wind;
 v_rel = vel(2) - v_wind;
 
+Vu = sqrt(vel(3)^2 + u_rel^2);
+Vv = sqrt(vel(3)^2 + v_rel^2);
+
 % Drag Forces
 Fu = F_d(z, u_rel, C_d, Az);
 Fv = F_d(z, v_rel, C_d, Az);
@@ -39,8 +42,8 @@ Fv = F_d(z, v_rel, C_d, Az);
 % Accelerations
 % au = 0;
 % av = 0;
-au = -Fu / m * sign(u_rel + eps);
-av = -Fv / m * sign(v_rel + eps);
+au = -Fu / (m*Vu) * u_rel;
+av = -Fv / (m*Vv) * v_rel;
 
 
 % Output
